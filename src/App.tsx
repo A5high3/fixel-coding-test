@@ -1,24 +1,20 @@
-import { useState, ReactNode } from "react";
+import { useState } from "react";
 
 import "./App.css";
+
+import TabContents from "./organisms/TabContents";
 
 import { Box } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 
-function TabContents(props: {
-  children?: ReactNode;
-  chosenTabIndex: number;
-  contentsTabIndex: number;
-}) {
-  return (
-    <Box>
-      {props.chosenTabIndex === props.contentsTabIndex && (
-        <Box>{props.children}</Box>
-      )}
-    </Box>
-  );
-}
+import dummy from "./dummyData.json";
+
+type ToDoObject = {
+  id: number;
+  title: string;
+  state: "NOTYET" | "DOING" | "COMPLETE";
+};
 
 function App() {
   const [chosenTabIndex, choiseTab] = useState(1);
@@ -33,16 +29,16 @@ function App() {
         </Tabs>
       </Box>
       <TabContents chosenTabIndex={chosenTabIndex} contentsTabIndex={0}>
-        全てのタスク
+        {dummy as ToDoObject[]}
       </TabContents>
       <TabContents chosenTabIndex={chosenTabIndex} contentsTabIndex={1}>
-        未着手のタスク
+        {dummy.filter((v) => v.state === "NOTYET") as ToDoObject[]}
       </TabContents>
       <TabContents chosenTabIndex={chosenTabIndex} contentsTabIndex={2}>
-        実行中のタスク
+        {dummy.filter((v) => v.state === "DOING") as ToDoObject[]}
       </TabContents>
       <TabContents chosenTabIndex={chosenTabIndex} contentsTabIndex={3}>
-        完了ののタスク
+        {dummy.filter((v) => v.state === "COMPLETE") as ToDoObject[]}
       </TabContents>
     </div>
   );
