@@ -7,8 +7,11 @@ import TabContents from "./organisms/TabContents";
 import { Box } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 
 import dummy from "./dummyData.json";
+import TodoAddModal from "./organisms/TodoAddModal";
 
 type ToDoObject = {
   id: number;
@@ -18,8 +21,13 @@ type ToDoObject = {
 
 function App() {
   const [chosenTabIndex, choiseTab] = useState(1);
+  const [isShowAddModal, showAddModal] = useState(false);
   return (
     <div className="App">
+      <TodoAddModal
+        isShowAddModal={isShowAddModal}
+        showAddModal={showAddModal}
+      />
       <Box>
         <Tabs value={chosenTabIndex} centered>
           <Tab onClick={() => choiseTab(0)} label="全て"></Tab>
@@ -40,6 +48,11 @@ function App() {
       <TabContents chosenTabIndex={chosenTabIndex} contentsTabIndex={3}>
         {dummy.filter((v) => v.state === "COMPLETE") as ToDoObject[]}
       </TabContents>
+      <Box style={{ position: "relative" }}>
+        <Fab color="primary" onClick={() => showAddModal(true)}>
+          <AddIcon />
+        </Fab>
+      </Box>
     </div>
   );
 }
