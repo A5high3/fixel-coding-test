@@ -1,8 +1,5 @@
-import { useState } from "react";
-
 import { Box } from "@mui/material";
-import TaskMenu from "../molecules/TaskMenu";
-import TodoColumn from "../molecules/ToDoColumn";
+import TodoColumn from "../molecules/TodoColumn";
 
 type ToDoObject = {
   id: number;
@@ -15,8 +12,6 @@ export default function TabContents(props: {
   chosenTabIndex: number;
   contentsTabIndex: number;
 }) {
-  const [isShowTodoMenu, switchShowTodoMenu] = useState(false);
-
   return (
     <Box
       sx={{
@@ -27,7 +22,6 @@ export default function TabContents(props: {
         flexDirection: "column",
       }}
     >
-      <TaskMenu isShow={isShowTodoMenu} />
       {props.chosenTabIndex === props.contentsTabIndex &&
         props.children?.map((v) => <TodoColumn todo={v} />)}
     </Box>

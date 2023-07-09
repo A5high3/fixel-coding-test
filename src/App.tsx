@@ -22,10 +22,10 @@ function App() {
     <div className="App">
       <Box>
         <Tabs value={chosenTabIndex} centered>
-          <Tab onClick={() => choiseTab(0)} label="ALL"></Tab>
-          <Tab onClick={() => choiseTab(1)} label="NOT YET"></Tab>
-          <Tab onClick={() => choiseTab(2)} label="DOING"></Tab>
-          <Tab onClick={() => choiseTab(3)} label="COMPLETE"></Tab>
+          <Tab onClick={() => choiseTab(0)} label="全て"></Tab>
+          <Tab onClick={() => choiseTab(1)} label="未着手"></Tab>
+          <Tab onClick={() => choiseTab(2)} label="実行中"></Tab>
+          <Tab onClick={() => choiseTab(3)} label="完了"></Tab>
         </Tabs>
       </Box>
       <TabContents chosenTabIndex={chosenTabIndex} contentsTabIndex={0}>

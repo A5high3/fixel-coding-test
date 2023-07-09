@@ -1,7 +1,5 @@
-import { useState } from "react";
-
-import { Box } from "@mui/material";
-import { TaskAlt, ArrowRight, Autorenew } from "@mui/icons-material";
+import { Box, Chip } from "@mui/material";
+import TodoMenu from "./TodoMenu"
 
 type ToDoObject = {
   id: number;
@@ -10,26 +8,41 @@ type ToDoObject = {
 };
 
 export default function TodoColumn(props: { todo: ToDoObject }) {
-  const [isShowTodoMenu, switchShowTodoMenu] = useState(false);
 
   return (
     <Box
       sx={{
         display: "flex",
         width: "100%",
-        minHeight: 100,
         maxWidth: 400,
+        padding: 2,
         border: "1px solid #bbb",
-        padding: 5,
-        justifyContent: "center",
+        justifyContent: "start",
         alignItems: "center",
+        flexDirection: "column",
       }}
-      onClick={() => switchShowTodoMenu(!isShowTodoMenu)}
+      style={{marginBottom: 15}}
     >
-      {props.todo.state === "NOTYET" && <ArrowRight />}
-      {props.todo.state === "DOING" && <Autorenew />}
-      {props.todo.state === "COMPLETE" && <TaskAlt />}
-      {props.todo.title}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "start",
+          flexDirection: "row",
+          width: "100%",
+          height: "80%",
+        }}
+      >
+        {props.todo.state === "NOTYET" && <Chip label="未着手" color="info" />}
+        {props.todo.state === "DOING" && (
+          <Chip label="実行中" color="warning" />
+        )}
+        {props.todo.state === "COMPLETE" && (
+          <Chip label="完了" color="success" />
+        )}
+        <Box style={{ paddingLeft: 10, fontSize: 24 }}>{props.todo.title}</Box>
+      </Box>
+      <TodoMenu state={props.todo.state} />
     </Box>
   );
 }
