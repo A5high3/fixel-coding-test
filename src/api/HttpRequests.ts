@@ -20,4 +20,9 @@ export default class HttpRequests {
     await axios.put(`http://localhost:4000/todo/${requestObject.id}`, requestObject);
     return;
   }
+
+  public async deleteTodo(requestObject: ToDoObject): Promise<void> {
+    await axios.delete(`http://localhost:4000/todo/${requestObject.id}`);
+    return;
+  }
 }

@@ -4,19 +4,30 @@ import { ToDoObject } from "../App";
 import HttpRequests from "../api/HttpRequests";
 
 export default function TodoMenu(props: {
-  todo: ToDoObject,
-  fetchTodo: () => Promise<void>
+  todo: ToDoObject;
+  fetchTodo: () => Promise<void>;
 }) {
-  async function changeStatoDoing() {
-    const request = {id: props.todo.id, title: props.todo.title, state: "DOING"}
-    await new HttpRequests().changeTodoState(request as ToDoObject)
+  async function changeState(targetState: "DOING" | "COMPLETE"): Promise<void> {
+    const request = {
+      id: props.todo.id,
+      title: props.todo.title,
+      state: targetState,
+    };
+    await new HttpRequests().changeTodoState(request as ToDoObject);
     await props.fetchTodo();
+    return;
+  }
+
+  async function deleteTodo(): Promise<void> {
+    await new HttpRequests().deleteTodo(props.todo);
+    await props.fetchTodo();
+    return;
   }
 
   return (
     <Box style={style.menuArea}>
       {props.todo.state === "NOTYET" && (
-        <Button style={style.menuBtn} onClick={() => changeStatoDoing()}>
+        <Button style={style.menuBtn} onClick={() => changeState("DOING")}>
           <ArrowRight />
           <Box style={style.paddingAdjusment}>実行中にする</Box>
         </Button>
@@ -28,13 +39,13 @@ export default function TodoMenu(props: {
       </Button>
 
       {props.todo.state !== "COMPLETE" && (
-        <Button style={style.menuBtn}>
+        <Button style={style.menuBtn} onClick={() => changeState("COMPLETE")}>
           <TaskAlt />
           完了にする
         </Button>
       )}
 
-      <Button style={style.menuBtn}>
+      <Button style={style.menuBtn} onClick={() => deleteTodo()}>
         <Delete />
         削除する
       </Button>
