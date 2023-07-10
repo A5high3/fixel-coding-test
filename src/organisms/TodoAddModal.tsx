@@ -5,10 +5,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { TextField, Button } from "@mui/material";
 
+import HttpRequests from "../api/HttpRequests";
+
 export default function TodoAddModal(props: {
   isShowAddModal: boolean;
   showAddModal: (flag: boolean) => void;
 }) {
+  const registration = async () => {
+    await new HttpRequests().registTodo("test");
+    props.showAddModal(!props.isShowAddModal);
+  };
   return (
     <Dialog
       open={props.isShowAddModal}
@@ -23,9 +29,7 @@ export default function TodoAddModal(props: {
         <Button onClick={() => props.showAddModal(!props.isShowAddModal)}>
           キャンセル
         </Button>
-        <Button onClick={() => props.showAddModal(!props.isShowAddModal)}>
-          タスクを登録する
-        </Button>
+        <Button onClick={() => registration()}>タスクを登録する</Button>
       </DialogActions>
     </Dialog>
   );
