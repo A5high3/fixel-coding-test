@@ -28,7 +28,10 @@ function App() {
   async function fetchTodoAsyncWrapper() {
     const todoList = await new HttpRequests().fetchAllTodo();
     setTodoList(todoList);
-    await sortTodoObjectAsyncWrapper(todoList);
+    if (0 < todoList.length) {
+      await sortTodoObjectAsyncWrapper(todoList);
+    }
+
     return;
   }
 

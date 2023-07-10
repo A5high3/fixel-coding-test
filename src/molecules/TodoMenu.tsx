@@ -1,19 +1,26 @@
+import { useState } from "react";
+
 import { Box, Button } from "@mui/material";
 import { TaskAlt, ArrowRight, Draw, Delete } from "@mui/icons-material";
 import { ToDoObject } from "../App";
+
+import TodoAddModal from "../organisms/TodoAddModal";
 import HttpRequests from "../api/HttpRequests";
+import TodoUpdateModal from "../organisms/TodoUpdateModal";
 
 export default function TodoMenu(props: {
   todo: ToDoObject;
   fetchTodo: () => Promise<void>;
 }) {
+  const [isShowAddModal, showAddModal] = useState(false);
+
   async function changeState(targetState: "DOING" | "COMPLETE"): Promise<void> {
     const request = {
       id: props.todo.id,
       title: props.todo.title,
       state: targetState,
     };
-    await new HttpRequests().changeTodoState(request as ToDoObject);
+    await new HttpRequests().updateTodo(request as ToDoObject);
     await props.fetchTodo();
     return;
   }
@@ -26,6 +33,12 @@ export default function TodoMenu(props: {
 
   return (
     <Box style={style.menuArea}>
+      <TodoUpdateModal
+        isShowAddModal={isShowAddModal}
+        showAddModal={showAddModal}
+        todo={props.todo}
+        fetchTodo={props.fetchTodo}
+      />
       {props.todo.state === "NOTYET" && (
         <Button style={style.menuBtn} onClick={() => changeState("DOING")}>
           <ArrowRight />
@@ -33,7 +46,7 @@ export default function TodoMenu(props: {
         </Button>
       )}
 
-      <Button style={style.menuBtn}>
+      <Button style={style.menuBtn} onClick={() => showAddModal(true)}>
         <Draw />
         <Box style={style.paddingAdjusment}>編集する</Box>
       </Button>

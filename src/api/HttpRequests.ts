@@ -16,7 +16,7 @@ export default class HttpRequests {
     return result.data as ToDoObject[];
   }
 
-  public async changeTodoState(requestObject: ToDoObject): Promise<void> {
+  public async updateTodo(requestObject: ToDoObject): Promise<void> {
     await axios.put(`http://localhost:4000/todo/${requestObject.id}`, requestObject);
     return;
   }
