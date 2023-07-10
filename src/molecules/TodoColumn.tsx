@@ -1,5 +1,5 @@
 import { Box, Chip } from "@mui/material";
-import TodoMenu from "./TodoMenu"
+import TodoMenu from "./TodoMenu";
 
 type ToDoObject = {
   id: number;
@@ -7,8 +7,10 @@ type ToDoObject = {
   state: "NOTYET" | "DOING" | "COMPLETE";
 };
 
-export default function TodoColumn(props: { todo: ToDoObject }) {
-
+export default function TodoColumn(props: {
+  todo: ToDoObject;
+  fetchTodo: () => Promise<void>;
+}) {
   return (
     <Box
       sx={{
@@ -21,7 +23,7 @@ export default function TodoColumn(props: { todo: ToDoObject }) {
         alignItems: "center",
         flexDirection: "column",
       }}
-      style={{marginBottom: 15}}
+      style={{ marginBottom: 15 }}
     >
       <Box
         sx={{
@@ -42,7 +44,7 @@ export default function TodoColumn(props: { todo: ToDoObject }) {
         )}
         <Box style={{ paddingLeft: 10, fontSize: 24 }}>{props.todo.title}</Box>
       </Box>
-      <TodoMenu state={props.todo.state} />
+      <TodoMenu todo={props.todo} fetchTodo={props.fetchTodo} />
     </Box>
   );
 }

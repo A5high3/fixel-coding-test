@@ -1,13 +1,22 @@
 import { Box, Button } from "@mui/material";
 import { TaskAlt, ArrowRight, Draw, Delete } from "@mui/icons-material";
+import { ToDoObject } from "../App";
+import HttpRequests from "../api/HttpRequests";
 
 export default function TodoMenu(props: {
-  state: "NOTYET" | "DOING" | "COMPLETE";
+  todo: ToDoObject,
+  fetchTodo: () => Promise<void>
 }) {
+  async function changeStatoDoing() {
+    const request = {id: props.todo.id, title: props.todo.title, state: "DOING"}
+    await new HttpRequests().changeTodoState(request as ToDoObject)
+    await props.fetchTodo();
+  }
+
   return (
     <Box style={style.menuArea}>
-      {props.state === "NOTYET" && (
-        <Button style={style.menuBtn}>
+      {props.todo.state === "NOTYET" && (
+        <Button style={style.menuBtn} onClick={() => changeStatoDoing()}>
           <ArrowRight />
           <Box style={style.paddingAdjusment}>実行中にする</Box>
         </Button>
@@ -18,7 +27,7 @@ export default function TodoMenu(props: {
         <Box style={style.paddingAdjusment}>編集する</Box>
       </Button>
 
-      {props.state !== "COMPLETE" && (
+      {props.todo.state !== "COMPLETE" && (
         <Button style={style.menuBtn}>
           <TaskAlt />
           完了にする

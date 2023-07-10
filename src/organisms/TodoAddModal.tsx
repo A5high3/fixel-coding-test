@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -10,9 +12,14 @@ import HttpRequests from "../api/HttpRequests";
 export default function TodoAddModal(props: {
   isShowAddModal: boolean;
   showAddModal: (flag: boolean) => void;
+  requestId: number;
+  fetchTodo: () => Promise<void>
 }) {
+  const [taskTitle, changeTaskTitle] = useState("");
+
   const registration = async () => {
-    await new HttpRequests().registTodo("test");
+    await new HttpRequests().registTodo(props.requestId, taskTitle);
+    await props.fetchTodo();
     props.showAddModal(!props.isShowAddModal);
   };
   return (
@@ -23,7 +30,14 @@ export default function TodoAddModal(props: {
       <DialogTitle>新規のタスクを追加する</DialogTitle>
       <DialogContent>
         <DialogContentText>タスク内容を入力してください</DialogContentText>
-        <TextField autoFocus type="" fullWidth variant="standard" />
+        <TextField
+          autoFocus
+          type=""
+          fullWidth
+          variant="standard"
+          value={taskTitle}
+          onChange={(v) => changeTaskTitle(v.target.value)}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => props.showAddModal(!props.isShowAddModal)}>

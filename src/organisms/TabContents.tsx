@@ -11,6 +11,7 @@ export default function TabContents(props: {
   children?: ToDoObject[];
   chosenTabIndex: number;
   contentsTabIndex: number;
+  fetchTodo: () => Promise<void>
 }) {
   return (
     <Box
@@ -23,7 +24,7 @@ export default function TabContents(props: {
       }}
     >
       {props.chosenTabIndex === props.contentsTabIndex &&
-        props.children?.map((v) => <TodoColumn todo={v} />)}
+        props.children?.map((v) => <TodoColumn todo={v} fetchTodo={props.fetchTodo}/>)}
     </Box>
   );
 }
