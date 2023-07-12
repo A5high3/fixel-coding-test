@@ -10,7 +10,8 @@ import Tabs from "@mui/material/Tabs";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 
-import TodoAddModal from "./organisms/TodoAddModal";
+import TodoAddModal from "./pages/TodoAddModal"
+
 import HttpRequests from "./api/HttpRequests";
 
 export type ToDoObject = {

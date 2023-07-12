@@ -4,9 +4,8 @@ import { Box, Button } from "@mui/material";
 import { TaskAlt, ArrowRight, Draw, Delete } from "@mui/icons-material";
 import { ToDoObject } from "../App";
 
-import TodoAddModal from "../organisms/TodoAddModal";
 import HttpRequests from "../api/HttpRequests";
-import TodoUpdateModal from "../organisms/TodoUpdateModal";
+import TodoUpdateModal from "../pages/TodoUpdateModal";
 
 export default function TodoMenu(props: {
   todo: ToDoObject;
