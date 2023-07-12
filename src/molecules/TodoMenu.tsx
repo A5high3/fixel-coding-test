@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Box, Button } from "@mui/material";
 import { TaskAlt, ArrowRight, Draw, Delete } from "@mui/icons-material";
-import { ToDoObject } from "../App";
+import { ToDoObject } from "../templates/App";
 
 import HttpRequests from "../api/HttpRequests";
 import TodoUpdateModal from "../pages/TodoUpdateModal";

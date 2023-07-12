@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ToDoObject } from "../App";
+import { ToDoObject } from "../templates/App";
 
 export default class HttpRequests {
   public async registTodo(requestId: number, todoTitle: string): Promise<void> {

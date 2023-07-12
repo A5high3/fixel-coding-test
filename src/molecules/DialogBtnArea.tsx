@@ -7,7 +7,6 @@ export default function DialogBtnArea(props: {
   onClickFunctionAsAccept: () => Promise<void>;
   onClickFunctionAsCancel: () => void;
 }) {
-  console.log("props", props.onClickFunctionAsAccept);
   return (
     <DialogActions>
       <FixelBtn

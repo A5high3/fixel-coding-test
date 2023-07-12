@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import HttpRequests from "../api/HttpRequests";
-import { ToDoObject } from "../App";
+import { ToDoObject } from "../templates/App";
 
 import DialogArea from "../organisms/Dialog";
 import DialogBtnArea from "../molecules/DialogBtnArea";
