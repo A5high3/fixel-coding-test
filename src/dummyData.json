@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "新規タスク", "state": "NOTYET" },
+  { "id": 2, "title": "最優先タスク", "state": "DOING" },
+  { "id": 3, "title": "最優先タスク", "state": "DOING" },
+  { "id": 4, "title": "第２優先タスク", "state": "COMPLETE" }
+]
